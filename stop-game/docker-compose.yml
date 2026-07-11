@@ -1,0 +1,10 @@
+services:
+  stop-game:
+    build: .
+    container_name: stop-game
+    restart: unless-stopped
+    ports:
+      # host:contenedor — cambia 3000 de la izquierda si el puerto ya está ocupado
+      - "3000:3000"
+    environment:
+      - PORT=3000

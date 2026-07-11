@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#4c1d95" />
+  <title>STOP — Basta / Tutti Frutti</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Pantalla: Inicio -->
+    <section id="screen-home" class="screen active">
+      <div class="brand">
+        <h1>STOP<span class="dot">.</span></h1>
+        <p class="tagline">Basta · Tutti Frutti · Stop el lápiz</p>
+      </div>
+      <div class="card">
+        <label class="field">
+          <span>Tu nombre</span>
+          <input id="input-name" type="text" maxlength="20" placeholder="Ej: Julián" autocomplete="off" />
+        </label>
+        <button id="btn-create" class="btn primary">Crear sala</button>
+        <div class="divider"><span>o</span></div>
+        <label class="field">
+          <span>Código de sala</span>
+          <input id="input-code" type="text" maxlength="4" placeholder="ABCD" autocomplete="off" style="text-transform:uppercase" />
+        </label>
+        <button id="btn-join" class="btn">Entrar a la sala</button>
+      </div>
+      <p class="error" id="home-error"></p>
+    </section>
+
+    <!-- Pantalla: Sala de espera -->
+    <section id="screen-lobby" class="screen">
+      <div class="room-head">
+        <div>
+          <p class="muted">Código de sala</p>
+          <h2 id="lobby-code" class="code">----</h2>
+        </div>
+        <button id="btn-copy" class="btn small ghost">Copiar</button>
+      </div>
+
+      <div class="card">
+        <h3>Jugadores <span id="lobby-count" class="pill">0</span></h3>
+        <ul id="player-list" class="player-list"></ul>
+      </div>
+
+      <div class="card host-only">
+        <h3>Configuración</h3>
+        <label class="field">
+          <span>Rondas: <b id="rounds-val">5</b></span>
+          <input id="input-rounds" type="range" min="1" max="12" value="5" />
+        </label>
+        <label class="field">
+          <span>Tiempo por ronda: <b id="secs-val">120</b>s</span>
+          <input id="input-secs" type="range" min="30" max="300" step="10" value="120" />
+        </label>
+        <label class="field">
+          <span>Categorías (una por línea)</span>
+          <textarea id="input-cats" rows="7"></textarea>
+        </label>
+        <button id="btn-save-cfg" class="btn small ghost">Guardar configuración</button>
+      </div>
+
+      <div class="card guest-only">
+        <h3>Categorías</h3>
+        <ul id="cat-preview" class="cat-preview"></ul>
+        <p class="muted small">Esperando a que el anfitrión inicie…</p>
+      </div>
+
+      <button id="btn-start" class="btn primary host-only">Empezar partida</button>
+      <button id="btn-leave" class="btn ghost small">Salir de la sala</button>
+    </section>
+
+    <!-- Pantalla: Ronda en juego -->
+    <section id="screen-play" class="screen">
+      <div class="play-head">
+        <div class="letter-badge" id="letter-badge">A</div>
+        <div class="play-meta">
+          <p class="muted small">Ronda <span id="play-round">1</span>/<span id="play-total">5</span></p>
+          <p class="timer" id="play-timer">2:00</p>
+        </div>
+      </div>
+      <div id="answers-form" class="answers-form"></div>
+      <button id="btn-stop" class="btn stop">¡STOP!</button>
+      <p class="stop-note" id="stop-note"></p>
+    </section>
+
+    <!-- Pantalla: Resultados de ronda -->
+    <section id="screen-results" class="screen">
+      <h2 id="results-title">Ronda 1 — Letra A</h2>
+      <div id="results-body"></div>
+      <button id="btn-next" class="btn primary host-only">Siguiente ronda</button>
+      <p class="muted small guest-only" style="text-align:center">Esperando al anfitrión…</p>
+    </section>
+
+    <!-- Pantalla: Fin del juego -->
+    <section id="screen-over" class="screen">
+      <div class="brand"><h1>🏆</h1><p class="tagline">¡Fin de la partida!</p></div>
+      <div id="podium" class="podium"></div>
+      <div id="final-scores"></div>
+      <button id="btn-again" class="btn primary host-only">Jugar otra vez</button>
+      <button id="btn-home" class="btn ghost small">Volver al inicio</button>
+    </section>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

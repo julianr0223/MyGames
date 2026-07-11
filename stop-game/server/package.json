@@ -1,0 +1,18 @@
+{
+  "name": "stop-game-server",
+  "version": "1.0.0",
+  "description": "Servidor de coordinacion en tiempo real para el juego Stop (Basta / Tutti Frutti)",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "socket.io": "^4.7.5"
+  }
+}
